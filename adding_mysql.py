@@ -2,10 +2,10 @@ import mysql.connector
 from mysql.connector import errorcode
 from mysql.connector import Error
 
-
+import os
 def insert_values(user_name, password):
     try:
-        cnx = mysql.connector.connect(user='root', password='************',
+        cnx = mysql.connector.connect(user='root', password=f"{os.environ(['Sql_Password'])}",
                                       host='localhost',
                                       database='tkinter_login')
         data_login = (user_name, password)
@@ -28,7 +28,7 @@ def insert_values(user_name, password):
 
 def fetch_values():
     try:
-        cnx = mysql.connector.connect(user='root', password='kamalanita1@',
+        cnx = mysql.connector.connect(user='root', password=f"{os.environ(['Sql_Password'])}",
                                       host='localhost',
                                       database='tkinter_login')
         query = "SELECT * from login_details"
@@ -50,7 +50,7 @@ def fetch_values():
 
 def fetch_single(user, password):
     try:
-        cnx = mysql.connector.connect(user='root', password='kamalanita1@',
+        cnx = mysql.connector.connect(user='root', password=f"{os.environ(['Sql_Password'])}",
                                       host='localhost',
                                       database='tkinter_login')
         data = (user,password)
@@ -74,7 +74,7 @@ def fetch_single(user, password):
 
 def delete_funtion(user_delete,password):
     try:
-        cnx = mysql.connector.connect(user='root', password='kamalanita1@',
+        cnx = mysql.connector.connect(user='root', password=f"{os.environ(['Sql_Password'])}",
                                       host='localhost',
                                       database='tkinter_login')
         data = (user_delete,password)
@@ -98,7 +98,7 @@ def update_function(old_user,old_password,user_name,new_password):
     # while performig this function do a validation ceck as well for the authenticity of user
     # perform a validation check first in here using the old password and user_name
     try:
-        cnx = mysql.connector.connect(user='root', password='kamalanita1@',
+        cnx = mysql.connector.connect(user='root', password=f"{os.environ(['Sql_Password'])}",
                                       host='localhost',
                                       database='tkinter_login')
 
@@ -120,29 +120,3 @@ def update_function(old_user,old_password,user_name,new_password):
     else:
         cnx.close()
 
-'''
-Here is a simple example on how to use these functions
-# using the insert functionality
-users=["Abhipray Dumka","Vikas MC","Swagger Sharma","Billa","Chiranshu","Varun","Baba",
-       "Chori Chod"]
-password=['kamalanita1@','sakshi','khushi','apala','chetan mohan','pooja','neha','chori chod']
-
-for user,password in zip(users,password):
-    insert_values(user,password)
-
-#using the fetch functionality
-result=fetch_values()
-for val in result:
-    print(f"Name:{val[0]},Password:{val[1]}")
-
-#fetching a single value from the database
-result_single=fetch_single("Baba","neha")
-print(f"Name:{result_single[0][0]},Password:{result_single[0][1]}")
-
-#testing delete functionality
-#delete_funtion("Baba",'neha')
-
-#testing the update function
-update_function("Baba",'neha','mundal','khushi')
-
-'''
